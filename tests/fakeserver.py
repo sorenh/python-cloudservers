@@ -52,8 +52,8 @@ class FakeClient(CloudServersClient):
             assert_in('body', kwargs)
         
         # Strip off GET parameters
-        if '?' in url:
-            url = url[:url.index('?')]
+        if url.endswith('?fresh'):
+            url = url[:-6]
 
         # Call the method
         munged_url = url.strip('/').replace('/', '_').replace('.', '_')
