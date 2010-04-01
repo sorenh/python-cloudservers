@@ -58,6 +58,11 @@ class CloudServersClient(httplib2.Http):
                 raise ex
 
     def get(self, url, **kwargs):
+        # The Rackspace API returns cached results by default.
+        # We like our responses nice and fresh, though, so we
+        # stick a fake GET parameter on the URL.
+        if not '?' in url:
+            url += '?fresh'
         return self._cs_request(url, 'GET', **kwargs)
     
     def post(self, url, **kwargs):

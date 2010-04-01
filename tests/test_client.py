@@ -17,7 +17,7 @@ def test_get():
     cl = client()
     with mock.patch_object(httplib2.Http, "request", mock_request):
         resp, body = cl.get("/hi")
-        mock_request.assert_called_with("http://example.com/hi", "GET", 
+        mock_request.assert_called_with("http://example.com/hi?fresh", "GET", 
             headers={"X-Auth-Token": "token", "User-Agent": cl.USER_AGENT})
         # Automatic JSON parsing
         assert_equal(body, {"hi":"there"})

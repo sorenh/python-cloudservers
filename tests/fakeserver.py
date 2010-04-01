@@ -51,6 +51,10 @@ class FakeClient(CloudServersClient):
         elif method in ['PUT', 'POST']:
             assert_in('body', kwargs)
         
+        # Strip off GET parameters
+        if '?' in url:
+            url = url[:url.index('?')]
+
         # Call the method
         munged_url = url.strip('/').replace('/', '_').replace('.', '_')
         callback = "%s_%s" % (method.lower(), munged_url)
